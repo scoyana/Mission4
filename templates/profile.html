@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>프로필</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/profile.css') }}">
+  </head>
+  <body>
+    <h1>프로필</h1>
+    <div class="profile-container">
+      <div class="profile-box">
+        <div class="profile-image-container">
+          <img src="{{ url_for('static', filename='img/profile/' + user['profile_image']) }}" alt="프로필 이미지" class="profile-image">
+        </div>
+        <div class="profile-info">
+          <p>아이디: {{ user['userId'] }}</p>
+          <p>이름: {{ user['name'] }}</p>
+          <p>이메일: {{ user['email'] }}</p>
+          <p>학교: {{ user['school'] }}</p>
+          <p>가입일: {{ user['created_at'] }}</p>
+        </div>
+      </div>
+    </div>
+    <a href="{{ url_for('home') }}" class="button">홈으로 돌아가기</a>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시글</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='CSS/style.css') }}"
+    />
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+  </head>
+  <body>
+    <h1>{{ post['title'] }}</h1>
+    <div class="card">
+      <p style="white-space: pre-wrap">{{ post['content'] }}</p>
+      <p class="post-info">조회수: {{ post['views'] }}</p>
+      
+      {% if files %}
+      <div class="attached-files">
+        <h3>첨부 파일</h3>
+        {% for file in files %}
+        <div class="file-info">
+          <a href="{{ url_for('download_file', file_id=file['id']) }}" class="file-download-link">
+            {{ file['original_filename'] }}
+            <span class="download-count">({{ file['download_count'] }}회 다운로드)</span>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    <div style="margin-top: 20px">
+      {% if session.user_id == post['user_id'] %}
+      <a href="{{ url_for('edit_post', post_id=post['id']) }}" class="button"
+        >수정</a
+      >
+      <form
+        action="{{ url_for('delete_post', post_id=post['id']) }}"
+        method="post"
+        class="delete_form"
+      >
+        <button type="submit" class="button danger">삭제</button>
+      </form>
+      {% endif %}
+      <a href="{{ url_for('home') }}" class="button">메인화면으로 돌아가기</a>
+    </div>
+  </body>
+</html>

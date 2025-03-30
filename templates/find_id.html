@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>아이디 찾기</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='CSS/find_auth.css') }}"
+    />
+  </head>
+  <body>
+    <h1>아이디 찾기</h1>
+    <form
+      action="{{ url_for('auth.find_id') }}"
+      method="post"
+      class="find_id_form"
+    >
+      <label for="name" class="find_id_label">이름</label>
+      <input type="text" id="name" name="name" required />
+      <label for="email" class="find_id_label">이메일</label>
+      <input type="email" id="email" name="email" required />
+      <button type="submit" class="find_id_button">아이디 찾기</button>
+    </form>
+    {% if user_ids %}
+    {% for user in user_ids %}
+    <p class="find_id_result">찾은 아이디: {{ user['userId'] }}</p>
+    {% endfor %}
+    {% endif %} {% if error %}
+    <p class="find_id_error">{{ error }}</p>
+    {% endif %}
+    <div class="find_id_links">
+      <a href="{{ url_for('auth.login') }}">로그인 페이지로 돌아가기</a>
+
+      <a href="{{ url_for('home') }}">홈으로 돌아가기</a>
+
+      <a href="{{ url_for('auth.find_password') }}">비밀번호 찾기</a>
+    </div>
+  </body>
+</html>

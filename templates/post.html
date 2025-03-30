@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시글 작성</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='CSS/style.css') }}"
+    />
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+  </head>
+  <body>
+    <h1>게시글 작성</h1>
+    <form action="{{ url_for('post') }}" method="POST" id="post_form" enctype="multipart/form-data">
+      <label for="title">제목:</label><br />
+      <input type="text" id="title" name="title" required /><br /><br />
+      <label for="content">내용:</label><br />
+      <textarea id="content" name="content" rows="20" required></textarea><br /><br />
+      
+      <!-- 파일 업로드 영역 추가 -->
+      <div class="file-upload-container">
+        <label for="files">파일 첨부:</label><br />
+        <input type="file" id="files" name="files" multiple class="file-input" />
+        <p class="file-help">여러 파일을 선택하려면 Ctrl 키를 누른 채로 선택하세요.</p>
+        <div id="selected-files" class="selected-files"></div>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" class="button">글쓰기</button>
+        <button type="button" class="button" id="secret_button">비밀글쓰기</button>
+        <label for="secret" class="secret_form">게시글 비밀번호</label>
+        <input type="password" class="secret_form" name="secret" id="secret"/>
+        <button type="submit" class="button secret_form">확인</button>
+      </div>
+    </form>
+    <br />
+    <a href="{{ url_for('home') }}" class="button" style="background-color: #024fa1; color: white;">메인화면으로 돌아가기</a>
+  </body>
+</html>

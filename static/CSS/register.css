@@ -1,0 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: auto;
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+}
+
+form {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  color: #555;
+  margin-left: 0.5rem;
+}
+
+.form-group input,
+.form-group select {
+  padding: 0.8rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+/* 아이디 중복확인 버튼이 있는 그룹 스타일 */
+.form-group:first-of-type {
+  position: relative;
+}
+
+.form-group button[type="button"] {
+  position: absolute;
+  right: 0;
+  top: 32px;
+  padding: 0.8rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.form-group button[type="button"]:hover {
+  background-color: #0056b3;
+}
+
+/* 회원가입 버튼 스타일 */
+button[type="submit"] {
+  padding: 0.8rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* 이미지 미리보기 스타일 */
+.image-preview {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.image-preview img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 파일 입력 필드 스타일 */
+input[type="file"] {
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* 셀렉트 박스 스타일 */
+select {
+  background-color: white;
+  cursor: pointer;
+}
+
+select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+#userId {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+#userId:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+#checkUserId {
+  position: absolute;
+  right: 0;
+  top: 32px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0.67rem;
+}
+
+#checkUserId:hover {
+  background-color: #0056b3;
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='CSS/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='CSS/register.css') }}"
+    />
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+  </head>
+  <body>
+    <h1 class="main_title">회원가입</h1>
+
+    <form action="{{ url_for('register.register') }} " method="POST">
+      <div class="form-group">
+        <label for="userId">아이디</label>
+        <input
+          type="text"
+          name="userId"
+          id="userId"
+          placeholder="아이디"
+          required
+        />
+        <button type="button" id="checkUserId">중복확인</button>
+      </div>
+
+      <div class="form-group">
+        <label for="password">비밀번호</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="비밀번호"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">이메일</label>
+        <input type="email" name="email" placeholder="이메일" required />
+      </div>
+      <div class="form-group">
+        <label for="name">이름</label>
+        <input type="text" name="name" placeholder="이름" required />
+      </div>
+      <div class="form-group">
+        <label for="school">학교</label>
+        <input type="text" name="school" placeholder="학교" required />
+      </div>
+      <div class="form-group">
+        <label for="find_password">비밀번호 찾기 질문</label>
+        <select name="find_password" id="find_password" required>
+          <option value="1">가장친한 친구이름</option>
+          <option value="2">졸업한 초등학교이름</option>
+          <option value="3">좋아하는 동물</option>
+          <option value="4">좋아하는 색깔</option>
+        </select>
+        <input
+          type="text"
+          name="find_password_answer"
+          placeholder="비밀번호 찾기 질문 답변"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="profile_image">프로필 이미지</label>
+        <input
+          type="file"
+          name="profile_image"
+          id="profile_image"
+          onchange="previewImage(this)"
+        />
+        <div id="image_preview" class="image-preview">
+          <img
+            src="{{ url_for('static', filename='img/profile/default.png') }}"
+            alt="프로필 이미지 미리보기"
+          />
+        </div>
+      </div>
+      <button type="submit">회원가입</button>
+      <div class="footer">
+        <br><br><a href="{{ url_for('home') }}" class="home_link">홈으로 돌아가기</a>
+      </div>
+    </form>
+  </body>
+</html>

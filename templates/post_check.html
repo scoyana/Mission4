@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>비밀번호 확인</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}" />
+  </head>
+  <body class="post_check_body">
+    <div class="post_check_div">
+      <h1>비밀번호 확인</h1>
+      <form action="{{ url_for('post_check', post_id=post_id) }}" method="POST">
+        <input type="hidden" name="post_id" value="{{ post_id }}" />
+  
+        <input
+          type="password"
+          name="secret"
+          placeholder="비밀번호를 입력하세요"
+          id="post_check_password">
+        <button type="submit" id="post_check_button">확인</button>
+        <a href="{{ url_for('home') }}" class="home_link">돌아가기</a>
+      </form>
+    </div>
+  </body>
+</html>

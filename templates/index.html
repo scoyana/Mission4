@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>게시판</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='CSS/style.css') }}"
+    />
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+  </head>
+  <body>
+    <h1><a href="{{ url_for('home') }}" class="main_title">게시판</a></h1>
+    <nav>
+     
+      {% if session['user_id'] %}
+      
+        <span>안녕하세요 {{ user['userId'] }}님</span>
+      
+      <a href="{{ url_for('auth.myprofile') }}" class="button auth_button" id="myprofile_button"
+        >내 프로필</a
+      >
+      <a href="{{ url_for('auth.logout') }}" class="button auth_button" id="logout_button"
+        >로그아웃</a
+      >
+      {% else %}
+
+      <span>새 게시글 작성을원하시면 로그인 또는 회원가입 후 이용해주세요</span>
+
+      <a href="{{ url_for('register.register') }}" class="button no_user auth_button"
+      >회원가입</a
+    >
+    <a href="{{ url_for('auth.login') }}" class="button no_user auth_button"
+      >로그인</a
+    >
+      {% endif %}
+    </nav>
+    <a href="{{ url_for('post') }}" class="button">새 게시글 작성</a>
+
+    <table id="index_table">
+      <thead>
+        <tr>
+          <th>제목</th>
+          <th id="user_title">작성자</th>
+          <th id="time_title">작성일</th>
+          <th id="views_title">조회수</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+        <tr>
+          <td>
+            {% if post['secret'] %}
+            <a
+              href="{{ url_for('post_check', post_id=post['id']) }}"
+              id="secret_post"
+              >비밀글</a
+            >
+            <img
+              src="{{ url_for('static', filename='img/secret.png') }}"
+              class="secret_post"
+              alt="secret_post"
+            />
+            {% else %}
+            <a href="{{ url_for('view_post', post_id=post['id']) }}"
+              >{{ post['title'] }}</a
+            >
+            {% endif %}
+          </td>
+          <td id="user">
+            <a href="{{ url_for('auth.profile', user_id=post['user_id']) }}"
+              >{{ post['userId'] }}</a
+            >
+          </td>
+          <td id="time">{{ post['created_at'] }}</td>
+          <td id="views">{{ post['views'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- 페이지네이션 UI 추가 -->
+    {% if total_pages > 0 %}
+    <div class="pagination">
+      {% if current_page > 1 %}
+        {% if keyword %}
+          <a href="{{ url_for('search', page=current_page-1, keyword=keyword, search_option=search_option) }}" class="page-link">&laquo; 이전</a>
+        {% else %}
+          <a href="{{ url_for('home', page=current_page-1) }}" class="page-link">&laquo; 이전</a>
+        {% endif %}
+      {% endif %}
+      
+      {% set start = [1, current_page-2] | max %}
+      {% set end = [total_pages + 1, current_page+3] | min %}
+      
+      {% for page_num in range(start, end) %}
+        {% if keyword %}
+          <a href="{{ url_for('search', page=page_num, keyword=keyword, search_option=search_option) }}" 
+             class="page-link {% if page_num == current_page %}active{% endif %}">
+            {{ page_num }}
+          </a>
+        {% else %}
+          <a href="{{ url_for('home', page=page_num) }}" 
+             class="page-link {% if page_num == current_page %}active{% endif %}">
+            {{ page_num }}
+          </a>
+        {% endif %}
+      {% endfor %}
+      
+      {% if current_page < total_pages %}
+        {% if keyword %}
+          <a href="{{ url_for('search', page=current_page+1, keyword=keyword, search_option=search_option) }}" class="page-link">다음 &raquo;</a>
+        {% else %}
+          <a href="{{ url_for('home', page=current_page+1) }}" class="page-link">다음 &raquo;</a>
+        {% endif %}
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <form action="{{ url_for('search') }}" method="GET" class="search-form">
+      <select name="search_option" id="select_option">
+        <option value="title" {% if search_option == 'title' %}selected{% endif %}>제목</option>
+        <option value="content" {% if search_option == 'content' %}selected{% endif %}>내용</option>
+        <option value="user" {% if search_option == 'user' %}selected{% endif %}>작성자</option>
+        <option value="all" {% if search_option == 'all' %}selected{% endif %}>전체</option>
+      </select>
+      <input type="text" name="keyword" id="keyword" value="{{ keyword }}" placeholder="검색어를 입력하세요" required />
+      <button type="submit" class="button" id="search_button">검색</button>
+    </form>
+  </body>
+</html>
